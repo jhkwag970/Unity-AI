@@ -17,11 +17,7 @@ public class Character : MonoBehaviour
 
     private void Start()
     {
-        float x = Random.Range(-moveRange, moveRange);
-        float z = Random.Range(-moveRange, moveRange);
-        destination = new Vector3(x, transform.position.y, z);
-        raySize = leftRay + rightRay + 1;
-        rayList = new Vector3[raySize];
+        initalize();
     }
 
     private void FixedUpdate()
@@ -29,8 +25,17 @@ public class Character : MonoBehaviour
         randomDestinatnion();
         MoveTowardsDestination();
         createRays();
-        //detectObstacle();
-        detectObstacleOne();
+        detectObstacle();
+        //detectObstacleOne();
+    }
+
+    public void initalize()
+    {
+        float x = Random.Range(-moveRange, moveRange);
+        float z = Random.Range(-moveRange, moveRange);
+        destination = new Vector3(x, transform.position.y, z);
+        raySize = leftRay + rightRay + 1;
+        rayList = new Vector3[raySize];
     }
 
     private void detectObstacle()
@@ -46,15 +51,12 @@ public class Character : MonoBehaviour
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
-                Debug.Log("X: " + hit.normal.x);
-                Debug.Log("Z: " + hit.normal.z);
+                Vector3 dir = hit.normal;
                 if (hit.collider.tag == "Wall_1" || hit.collider.tag == "Wall_2" || hit.collider.tag == "Wall_3" || hit.collider.tag == "Wall_4")
                 {
                     Debug.Log(hit.collider.tag);
-                }
-                if (hit.collider.tag == "test")
-                {
-                    Debug.Log("test is hitted");
+                    collisionAvoid(dir);
+                    MoveTowardsDestination();
                 }
             }
 
@@ -72,13 +74,13 @@ public class Character : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward * rayLength, Color.red);
         if (Physics.Raycast(characterRay, out hit, rayLength))
         {
-            Debug.Log("normal: " + hit.normal);
+            //Debug.Log("normal: " + hit.normal);
             Vector3 dir = hit.normal;
             if (hit.collider.tag == "Wall_1" || hit.collider.tag == "Wall_2" || hit.collider.tag == "Wall_3" || hit.collider.tag == "Wall_4")
             {
                 collisionAvoid(dir);
                 MoveTowardsDestination();
-                Debug.Log(hit.collider.tag);
+                //Debug.Log(hit.collider.tag);
             }
         }
     }
