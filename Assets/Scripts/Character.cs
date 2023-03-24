@@ -27,9 +27,10 @@ public class Character : MonoBehaviour
     private void FixedUpdate()
     {
         randomDestinatnion();
-        //MoveTowardsDestination();
+        MoveTowardsDestination();
         createRays();
-        detectObstacle();
+        //detectObstacle();
+        detectObstacleOne();
     }
 
     private void detectObstacle()
@@ -45,11 +46,13 @@ public class Character : MonoBehaviour
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
+                Debug.Log("X: " + hit.normal.x);
+                Debug.Log("Z: " + hit.normal.z);
                 if (hit.collider.tag == "Wall_1" || hit.collider.tag == "Wall_2" || hit.collider.tag == "Wall_3" || hit.collider.tag == "Wall_4")
                 {
                     Debug.Log(hit.collider.tag);
                 }
-                if(hit.collider.tag == "test")
+                if (hit.collider.tag == "test")
                 {
                     Debug.Log("test is hitted");
                 }
@@ -57,18 +60,27 @@ public class Character : MonoBehaviour
 
         }
 
-        /*        RaycastHit hit;
+    }
+
+    private void detectObstacleOne()
+    {
+
+        RaycastHit hit;
 
         Ray characterRay = new Ray(transform.position, transform.forward);
 
         Debug.DrawRay(transform.position, transform.forward * rayLength, Color.red);
         if (Physics.Raycast(characterRay, out hit, rayLength))
         {
+            Debug.Log("normal: " + hit.normal);
+            Vector3 dir = hit.normal;
             if (hit.collider.tag == "Wall_1" || hit.collider.tag == "Wall_2" || hit.collider.tag == "Wall_3" || hit.collider.tag == "Wall_4")
             {
+                collisionAvoid(dir);
+                MoveTowardsDestination();
                 Debug.Log(hit.collider.tag);
             }
-        }*/
+        }
     }
 
     private void createRays()
@@ -90,6 +102,14 @@ public class Character : MonoBehaviour
             rayList[s] = transform.forward - (transform.right * i / rightRay);
             s++;
         }
+    }
+
+    private void collisionAvoid(Vector3 dir)
+    {
+        float x = Random.Range(-moveRange, moveRange);
+        float z = Random.Range(-moveRange, moveRange);
+         
+        destination = new Vector3(x*dir.x, transform.position.y, z*dir.z);
     }
 
     private void randomDestinatnion()
