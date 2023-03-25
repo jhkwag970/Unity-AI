@@ -1,19 +1,18 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character: MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float moveRange = 10f;
+
     [SerializeField] private int rayLength = 1;
     private int leftRay = 20;
     private int rightRay = 20;
     private int raySize;
 
-
     private Vector3[] rayList;
-
-    Vector3 destination;
+    private Vector3 destination;
 
     private void Start()
     {

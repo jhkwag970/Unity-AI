@@ -344,6 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 704528346}
   - component: {fileID: 704528347}
+  - component: {fileID: 704528348}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -374,9 +375,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704528345}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e36993e52c796f14eb9db03aa29e76dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  rotationSpeed: 200
+  moveRange: 10
+  rayLength: 5
+--- !u!114 &704528348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704528345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d3913ccce0f3a41ae7f60114937843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
