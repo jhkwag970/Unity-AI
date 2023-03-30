@@ -400,6 +400,7 @@ MonoBehaviour:
   rotationSpeed: 200
   moveRange: 10
   rayLength: 5
+  angle: 120
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

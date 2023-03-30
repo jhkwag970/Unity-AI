@@ -9,26 +9,23 @@ public class Player
     private float moveRange;
 
     private int rayLength;
-    private int leftRay;
-    private int rightRay;
-    private int raySize;
+    private int angle;
+    protected int angleChange = 3;
 
     private Vector3[] rayList;
     private Vector3 destination;
     private Vector3 dir;
 
 
-    public Player(float speed, float rotationSpeed, float moveRange, int rayLength, int leftRay, int rightRay)
+    public Player(float speed, float rotationSpeed, float moveRange, int rayLength, int angle)
     {
         this.speed = speed;
         this.rotationSpeed = rotationSpeed;
         this.moveRange = moveRange;
         this.rayLength = rayLength;
-        this.leftRay = leftRay;
-        this.rightRay = rightRay;
+        this.angle = angle;
 
-        raySize = leftRay + rightRay + 1;
-        rayList = new Vector3[raySize];
+        rayList = new Vector3[rayArraySize()];
     }
 
     public void initalizeMovement(Vector3 position)
@@ -42,7 +39,6 @@ public class Player
     {
         foreach (var vect in rayList)
         {
-            //Debug.Log(vect);
             RaycastHit hit;
 
             Ray characterRay = new Ray(position, vect);
@@ -84,25 +80,18 @@ public class Player
         return false;
     }
 
-    public void createRays(Vector3 forward, Vector3 right)
+    public void createRays_2(Vector3 right)
     {
-        for (int i = 0; i <= leftRay; i++)
+        float rad_angle = (float) angle * Mathf.PI / 180.0f;
+        float change = Mathf.PI/60.0f;
+        for (int i = 0; i < rayArraySize(); i++)
         {
-            if (i == 0)
-            {
-                rayList[i] = forward;
-            }
-            else
-            {
-                rayList[i] = forward + (right * i / leftRay);
-            }
+
+           rayList[i] = new Vector3(right.x * Mathf.Cos(rad_angle) - right.z * Mathf.Sin(rad_angle), right.y, right.z * Mathf.Cos(rad_angle) + right.x * Mathf.Sin(rad_angle));
+            rad_angle -= change;
+
         }
-        int s = leftRay + 1;
-        for (int i = 1; i <= rightRay; i++)
-        {
-            rayList[s] = forward - (right * i / rightRay);
-            s++;
-        }
+
     }
 
     public void collisionAvoid(Vector3 position)
@@ -133,5 +122,17 @@ public class Player
     public Vector3 MoveTowardsDestination(Vector3 position)
     {
         return Vector3.MoveTowards(position, destination, speed * Time.deltaTime);
+    }
+
+    public int rayArraySize()
+    {
+        int size = 0;
+
+        int diff = 180 - angle;
+        int remainder = diff / angleChange;
+        int realSize = angle / angleChange;
+        size = realSize - remainder;
+
+        return size;
     }
 }
