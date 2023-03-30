@@ -16,6 +16,7 @@ public class Player
     private Vector3[] rayList;
     private Vector3 destination;
     private Vector3 dir;
+    private Vector3 rayPoint;
 
 
     public Player(float speed, float rotationSpeed, float moveRange, int rayLength, int angle)
@@ -49,12 +50,11 @@ public class Player
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
-                //Vector3 norm = hit.normal;
-                //float avoidAngle = Mathf.PI;
-                //dir = new Vector3(norm.x * Mathf.Cos(avoidAngle) - norm.z * Mathf.Sin(avoidAngle), norm.y, norm.z * Mathf.Cos(avoidAngle) + norm.x * Mathf.Sin(avoidAngle));
                 dir = hit.normal;
+                rayPoint = hit.point;
                 if (hit.collider.tag == "Wall")
                 {
+                    
                     Debug.Log(hit.collider.tag);
                     return true;
                 }
@@ -65,7 +65,7 @@ public class Player
 
     }
 
-    public bool detectObstacleOne(Vector3 position, Vector3 forward, Quaternion rotation)
+    public bool detectObstacleOne(Vector3 position, Vector3 forward)
     {
         RaycastHit hit;
 
@@ -74,10 +74,10 @@ public class Player
         Debug.DrawRay(position, forward * rayLength, Color.red);
         if (Physics.Raycast(characterRay, out hit, rayLength))
         {
-            //Debug.Log("normal: " + hit.normal);
-            Vector3 dir = hit.normal;
-            if (hit.collider.tag == "Wall_1" || hit.collider.tag == "Wall_2" || hit.collider.tag == "Wall_3" || hit.collider.tag == "Wall_4")
+            if (hit.collider.tag == "Wall")
             {
+                dir = hit.normal;
+                rayPoint = hit.point;
                 Debug.Log(hit.collider.tag);
                 return true;
             }
@@ -105,7 +105,7 @@ public class Player
         float z = Random.Range(-avoidRange, avoidRange);
         
 
-        destination = new Vector3(x * dir.x, position.y, z * dir.z);
+        destination = new Vector3(rayPoint.x+dir.x, position.y, rayPoint.z+dir.z);
     }
 
     public void randomDestinatnion(Vector3 position)

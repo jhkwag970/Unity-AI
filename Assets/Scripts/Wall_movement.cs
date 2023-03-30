@@ -24,7 +24,7 @@ public class Wall_movement : MonoBehaviour
             moveLeft = false;
             moveRight = true;
         }
-        if(transform.position.z < -initialPosition.z+2)
+        if(transform.position.z < -initialPosition.z+5)
         {
             moveRight = false;
             moveLeft = true;

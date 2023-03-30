@@ -25,6 +25,8 @@ public class PreyBehavior : MonoBehaviour
         prey.randomDestinatnion(transform.position);
 
         characterMovement();
+        //Vector3 des = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
+        //transform.position = Vector3.MoveTowards(transform.position, des, speed * Time.deltaTime);
 
         prey.createRays_2(transform.right);
         if (prey.detectObstacle(transform.position))
@@ -32,6 +34,11 @@ public class PreyBehavior : MonoBehaviour
             prey.collisionAvoid(transform.position);
             characterMovement();
         }
+        /*if (prey.detectObstacleOne(transform.position, transform.forward))
+        {
+            prey.collisionAvoid(transform.position);
+            characterMovement();
+        }*/
     }
 
     private void characterMovement()
