@@ -26,7 +26,6 @@ public class PreyBehavior : MonoBehaviour
 
         characterMovement();
 
-        //prey.createRays(transform.forward, transform.right);
         prey.createRays_2(transform.right);
         if (prey.detectObstacle(transform.position))
         {
