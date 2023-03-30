@@ -7,6 +7,7 @@ public class Player
     private float speed;
     private float rotationSpeed;
     private float moveRange;
+    protected float avoidRange;
 
     private int rayLength;
     private int angle;
@@ -22,6 +23,7 @@ public class Player
         this.speed = speed;
         this.rotationSpeed = rotationSpeed;
         this.moveRange = moveRange;
+        this.avoidRange = moveRange / 2;
         this.rayLength = rayLength;
         this.angle = angle;
 
@@ -47,8 +49,11 @@ public class Player
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
+                //Vector3 norm = hit.normal;
+                //float avoidAngle = Mathf.PI;
+                //dir = new Vector3(norm.x * Mathf.Cos(avoidAngle) - norm.z * Mathf.Sin(avoidAngle), norm.y, norm.z * Mathf.Cos(avoidAngle) + norm.x * Mathf.Sin(avoidAngle));
                 dir = hit.normal;
-                if (hit.collider.tag == "Wall_1" || hit.collider.tag == "Wall_2" || hit.collider.tag == "Wall_3" || hit.collider.tag == "Wall_4")
+                if (hit.collider.tag == "Wall")
                 {
                     Debug.Log(hit.collider.tag);
                     return true;
@@ -96,8 +101,8 @@ public class Player
 
     public void collisionAvoid(Vector3 position)
     {
-        float x = Random.Range(-moveRange, moveRange);
-        float z = Random.Range(-moveRange, moveRange);
+        float x = Random.Range(-avoidRange, avoidRange);
+        float z = Random.Range(-avoidRange, avoidRange);
         
 
         destination = new Vector3(x * dir.x, position.y, z * dir.z);
