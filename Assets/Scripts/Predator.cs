@@ -23,6 +23,31 @@ public class Predator : Player
 
     }
 
+    public bool detectObstacle(Vector3 position, Vector3[] rayList)
+    {
+        foreach (var vect in rayList)
+        {
+            RaycastHit hit;
+
+            Ray characterRay = new Ray(position, vect);
+
+            //Debug.DrawRay(position, vect * rayLength, Color.red);
+
+            if (Physics.Raycast(characterRay, out hit, rayLength))
+            {
+                dir = hit.normal;
+                rayPoint = hit.point;
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Predator")
+                {
+                    Debug.Log(hit.collider.tag);
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+
     public bool detectPrey(Vector3 position, Vector3[] rayList, int chaseRayLength)
     {
         foreach (var vect in rayList)
@@ -31,7 +56,7 @@ public class Predator : Player
 
             Ray characterRay = new Ray(position, vect);
 
-            Debug.DrawRay(position, vect * chaseRayLength, Color.blue);
+            //Debug.DrawRay(position, vect * chaseRayLength, Color.blue);
 
             if (Physics.Raycast(characterRay, out hit, chaseRayLength))
             {

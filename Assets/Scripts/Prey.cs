@@ -29,13 +29,13 @@ public class Prey : Player
 
             Ray characterRay = new Ray(position, vect);
 
-            Debug.DrawRay(position, vect * rayLength, Color.red);
+            //Debug.DrawRay(position, vect * rayLength, Color.red);
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
                 dir = hit.normal;
                 rayPoint = hit.point;
-                if (hit.collider.tag == "Wall" || hit.collider.tag == "Predator")
+                if (hit.collider.tag == "Wall" || hit.collider.tag == "Predator" || hit.collider.tag == "Prey")
                 {
                     Debug.Log(hit.collider.tag);
                     return true;

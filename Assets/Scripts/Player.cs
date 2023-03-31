@@ -44,7 +44,7 @@ public class Player
 
             Ray characterRay = new Ray(position, vect);
 
-            Debug.DrawRay(position, vect * rayLength, Color.red);
+            //Debug.DrawRay(position, vect * rayLength, Color.red);
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
@@ -59,28 +59,8 @@ public class Player
 
         }
         return false;
-
     }
 
-    public bool detectObstacleOne(Vector3 position, Vector3 forward)
-    {
-        RaycastHit hit;
-
-        Ray characterRay = new Ray(position, forward);
-
-        Debug.DrawRay(position, forward * rayLength, Color.red);
-        if (Physics.Raycast(characterRay, out hit, rayLength))
-        {
-            if (hit.collider.tag == "Wall")
-            {
-                dir = hit.normal;
-                rayPoint = hit.point;
-                Debug.Log(hit.collider.tag);
-                return true;
-            }
-        }
-        return false;
-    }
 
     public Vector3[] createRays_2(Vector3 right, int angle, int angleChange, int length)
     {
@@ -97,6 +77,21 @@ public class Player
         }
         return rayList;
 
+    }
+
+    public void createFieldOfView(LineRenderer line, Vector3[] rayList, Vector3 position, Transform predatorObj, int length)
+    {
+        int i = 1;
+        foreach(Vector3 ray in rayList)
+        {
+            
+            line.SetPosition(0, new Vector3(0,0,0));
+            line.SetPosition(1, ray * length);
+
+            var lines = LineRenderer.Instantiate<LineRenderer>(line, position, Quaternion.identity, predatorObj);
+            lines.name = i+"";
+            i++;
+        }
     }
 
     public void collisionAvoid(Vector3 position)
@@ -140,4 +135,27 @@ public class Player
 
         return size;
     }
+
+
+
+    public bool detectObstacleOne(Vector3 position, Vector3 forward)
+    {
+        RaycastHit hit;
+
+        Ray characterRay = new Ray(position, forward);
+
+        Debug.DrawRay(position, forward * rayLength, Color.red);
+        if (Physics.Raycast(characterRay, out hit, rayLength))
+        {
+            if (hit.collider.tag == "Wall")
+            {
+                dir = hit.normal;
+                rayPoint = hit.point;
+                Debug.Log(hit.collider.tag);
+                return true;
+            }
+        }
+        return false;
+    }
 }
+

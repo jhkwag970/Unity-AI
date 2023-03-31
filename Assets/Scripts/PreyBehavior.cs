@@ -11,10 +11,14 @@ public class PreyBehavior : MonoBehaviour
     [SerializeField] private int moveRayLength;
     [SerializeField] private int moveAngle;
 
+    [SerializeField] private LineRenderer line;
+    [SerializeField] private Transform preyObj;
+
     private Vector3[] moverayList;
     private int angleChange = 8;
 
     Prey prey;
+    bool initialize = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +34,15 @@ public class PreyBehavior : MonoBehaviour
     {
         prey.randomDestinatnion(transform.position);
 
-        characterMovement();
+        //characterMovement();
 
         moverayList = prey.createRays_2(transform.right, moveAngle, angleChange, moverayList.Length);
+        if (initialize)
+        {
+            prey.createFieldOfView(line, moverayList, transform.position, transform, moveRayLength + 1);
+            initialize = false;
+        }
+
         if (prey.detectObstacle(transform.position, moverayList))
         {
             prey.collisionAvoid(transform.position);
