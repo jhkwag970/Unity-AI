@@ -11,7 +11,7 @@ public class Player
 
     private int rayLength;
     private int moveAngle;
-    protected int angleChange = 6;
+    protected int angleChange = 8;
 
     protected Vector3[] rayList;
     private Vector3 destination;
@@ -24,11 +24,9 @@ public class Player
         this.speed = speed;
         this.rotationSpeed = rotationSpeed;
         this.moveRange = moveRange;
-        this.avoidRange = moveRange / 2;
         this.rayLength = rayLength;
         this.moveAngle = moveAngle;
 
-        rayList = new Vector3[rayArraySize()];
     }
 
     public void initalizeMovement(Vector3 position)
@@ -38,7 +36,7 @@ public class Player
         destination = new Vector3(x, position.y, z);
     }
 
-    public bool detectObstacle(Vector3 position)
+    public bool detectObstacle(Vector3 position, Vector3[] rayList)
     {
         foreach (var vect in rayList)
         {
@@ -85,18 +83,20 @@ public class Player
         return false;
     }
 
-    public void createRays_2(Vector3 right, int angle)
+    public Vector3[] createRays_2(Vector3 right, int angle, int angleChange, int length)
     {
+        Vector3[] rayList = new Vector3[length];
         float rad_angle = (float) angle * Mathf.PI / 180.0f;
         float div = 180.0f / angleChange;
         float change = Mathf.PI/div;
-        for (int i = 0; i < rayArraySize(); i++)
+        for (int i = 0; i < length; i++)
         {
 
            rayList[i] = new Vector3(right.x * Mathf.Cos(rad_angle) - right.z * Mathf.Sin(rad_angle), right.y, right.z * Mathf.Cos(rad_angle) + right.x * Mathf.Sin(rad_angle));
             rad_angle -= change;
 
         }
+        return rayList;
 
     }
 
@@ -130,7 +130,7 @@ public class Player
         return Vector3.MoveTowards(position, destination, speed * Time.deltaTime);
     }
 
-    public int rayArraySize()
+    public int rayArraySize(int moveAngle, int angleChange)
     {
         int size = 0;
 

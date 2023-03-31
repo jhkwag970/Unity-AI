@@ -8,35 +8,39 @@ public class PreyBehavior : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
     [SerializeField] private float moveRange = 10f;
 
-    [SerializeField] private int rayLength = 1;
+    [SerializeField] private int moveRayLength = 1;
     [SerializeField] private int moveAngle;
+
+    private Vector3[] moverayList;
+    private int angleChange = 8;
 
     Prey prey;
     // Start is called before the first frame update
     void Start()
     {
-        prey = new Prey(speed, rotationSpeed, moveRange, rayLength, moveAngle);
+        prey = new Prey(speed, rotationSpeed, moveRange, moveRayLength, moveAngle);
+        moverayList = new Vector3[prey.rayArraySize(moveAngle, angleChange)];
+
+
         prey.initalizeMovement(transform.position);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         prey.randomDestinatnion(transform.position);
 
-        //characterMovement();
-        //Vector3 des = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
-        //transform.position = Vector3.MoveTowards(transform.position, des, speed * Time.deltaTime);
+        characterMovement();
 
-/*        prey.createRays_2(transform.right, moveAngle);
-        if (prey.detectObstacle(transform.position))
+        moverayList = prey.createRays_2(transform.right, moveAngle, angleChange, moverayList.Length);
+        if (prey.detectObstacle(transform.position, moverayList))
         {
             prey.collisionAvoid(transform.position);
             characterMovement();
-        }*/
-        /*if (prey.detectObstacleOne(transform.position, transform.forward))
+        }
+        /*if (predator.detectPrey(transform.position))
         {
-            prey.collisionAvoid(transform.position);
+            predator.chasePrey();
             characterMovement();
         }*/
     }

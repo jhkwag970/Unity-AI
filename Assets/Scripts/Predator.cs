@@ -22,10 +22,9 @@ public class Predator : Player
         this.rayLength = rayLength;
         this.moveAngle = moveAngle;
 
-        rayList = new Vector3[rayArraySize()];
     }
 
-    public bool detectPrey(Vector3 position)
+    public bool detectPrey(Vector3 position, Vector3[] rayList)
     {
         foreach (var vect in rayList)
         {
