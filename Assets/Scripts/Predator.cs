@@ -23,7 +23,7 @@ public class Predator : Player
 
     }
 
-    public bool detectPrey(Vector3 position, Vector3[] rayList)
+    public bool detectPrey(Vector3 position, Vector3[] rayList, int chaseRayLength)
     {
         foreach (var vect in rayList)
         {
@@ -31,14 +31,14 @@ public class Predator : Player
 
             Ray characterRay = new Ray(position, vect);
 
-            Debug.DrawRay(position, vect * rayLength, Color.blue);
+            Debug.DrawRay(position, vect * chaseRayLength, Color.blue);
 
-            if (Physics.Raycast(characterRay, out hit, rayLength))
+            if (Physics.Raycast(characterRay, out hit, chaseRayLength))
             {
+
                 preyPosition = hit.point;
                 if (hit.collider.tag == "Prey")
                 {
-                    Debug.Log("Find");
                     return true;
                 }
             }

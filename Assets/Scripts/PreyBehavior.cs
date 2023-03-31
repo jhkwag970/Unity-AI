@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PreyBehavior : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private float moveRange = 10f;
+    [SerializeField] private float speed;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float moveRange;
 
-    [SerializeField] private int moveRayLength = 1;
+    [SerializeField] private int moveRayLength;
     [SerializeField] private int moveAngle;
 
     private Vector3[] moverayList;
@@ -30,7 +30,7 @@ public class PreyBehavior : MonoBehaviour
     {
         prey.randomDestinatnion(transform.position);
 
-        //characterMovement();
+        characterMovement();
 
         moverayList = prey.createRays_2(transform.right, moveAngle, angleChange, moverayList.Length);
         if (prey.detectObstacle(transform.position, moverayList))
@@ -38,11 +38,6 @@ public class PreyBehavior : MonoBehaviour
             prey.collisionAvoid(transform.position);
             characterMovement();
         }
-        /*if (predator.detectPrey(transform.position))
-        {
-            predator.chasePrey();
-            characterMovement();
-        }*/
     }
 
     private void characterMovement()

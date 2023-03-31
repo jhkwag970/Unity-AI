@@ -10,6 +10,7 @@ TagManager:
   - Wall_3
   - Wall_4
   - Prey
+  - Predator
   layers:
   - Default
   - TransparentFX

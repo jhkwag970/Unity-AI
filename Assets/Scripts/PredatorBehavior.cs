@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PredatorBehavior : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private float moveRange = 10f;
+    [SerializeField] private float speed;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float moveRange;
 
-    [SerializeField] private int moveRayLength = 1;
+    [SerializeField] private int moveRayLength;
+    [SerializeField] private int chaseRayLength;
     [SerializeField] private int moveAngle;
     [SerializeField] private int chaseAngle;
 
@@ -44,7 +45,7 @@ public class PredatorBehavior : MonoBehaviour
             predator.collisionAvoid(transform.position);
             characterMovement();
         }
-        if (predator.detectPrey(transform.position,chaserayList))
+        if (predator.detectPrey(transform.position, chaserayList, chaseRayLength))
         {
             predator.chasePrey();
             characterMovement();

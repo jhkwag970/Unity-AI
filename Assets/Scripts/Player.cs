@@ -15,8 +15,8 @@ public class Player
 
     protected Vector3[] rayList;
     protected Vector3 destination;
-    private Vector3 dir;
-    private Vector3 rayPoint;
+    protected Vector3 dir;
+    protected Vector3 rayPoint;
 
 
     public Player(float speed, float rotationSpeed, float moveRange, int rayLength, int moveAngle)
@@ -52,7 +52,6 @@ public class Player
                 rayPoint = hit.point;
                 if (hit.collider.tag == "Wall")
                 {
-                    
                     Debug.Log(hit.collider.tag);
                     return true;
                 }
