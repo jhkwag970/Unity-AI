@@ -30,7 +30,7 @@ public class PreyBehavior : MonoBehaviour
     {
         prey.randomDestinatnion(transform.position);
 
-        characterMovement();
+        //characterMovement();
 
         moverayList = prey.createRays_2(transform.right, moveAngle, angleChange, moverayList.Length);
         if (prey.detectObstacle(transform.position, moverayList))

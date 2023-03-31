@@ -56,4 +56,5 @@ public class PredatorBehavior : MonoBehaviour
         transform.rotation = predator.rotateTowardDestination(transform.position, transform.rotation);
         transform.position = predator.MoveTowardsDestination(transform.position);
     }
+
 }

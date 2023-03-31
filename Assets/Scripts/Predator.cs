@@ -12,7 +12,6 @@ public class Predator : Player
     private int moveAngle;
 
     private Vector3 preyPosition;
-    private Vector3 destination;
 
     public Predator(float speed, float rotationSpeed, float moveRange, int rayLength, int moveAngle) : base(speed, rotationSpeed, moveRange, rayLength, moveAngle)
     {
@@ -32,14 +31,14 @@ public class Predator : Player
 
             Ray characterRay = new Ray(position, vect);
 
-            Debug.DrawRay(position, vect * rayLength, Color.red);
+            Debug.DrawRay(position, vect * rayLength, Color.blue);
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
                 preyPosition = hit.point;
                 if (hit.collider.tag == "Prey")
                 {
-                    Debug.Log("find: " + preyPosition );
+                    Debug.Log("Find");
                     return true;
                 }
             }

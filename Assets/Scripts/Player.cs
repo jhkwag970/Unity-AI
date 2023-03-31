@@ -14,7 +14,7 @@ public class Player
     protected int angleChange = 8;
 
     protected Vector3[] rayList;
-    private Vector3 destination;
+    protected Vector3 destination;
     private Vector3 dir;
     private Vector3 rayPoint;
 
@@ -44,7 +44,7 @@ public class Player
 
             Ray characterRay = new Ray(position, vect);
 
-            //Debug.DrawRay(position, vect * rayLength, Color.red);
+            Debug.DrawRay(position, vect * rayLength, Color.red);
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
