@@ -9,13 +9,13 @@ public class PreyBehavior : MonoBehaviour
     [SerializeField] private float moveRange = 10f;
 
     [SerializeField] private int rayLength = 1;
-    [SerializeField] private int angle;
+    [SerializeField] private int moveAngle;
 
     Prey prey;
     // Start is called before the first frame update
     void Start()
     {
-        prey = new Prey(speed, rotationSpeed, moveRange, rayLength, angle);
+        prey = new Prey(speed, rotationSpeed, moveRange, rayLength, moveAngle);
         prey.initalizeMovement(transform.position);
     }
 
@@ -24,16 +24,16 @@ public class PreyBehavior : MonoBehaviour
     {
         prey.randomDestinatnion(transform.position);
 
-        characterMovement();
+        //characterMovement();
         //Vector3 des = new Vector3(transform.position.x, transform.position.y, transform.position.z+1);
         //transform.position = Vector3.MoveTowards(transform.position, des, speed * Time.deltaTime);
 
-        prey.createRays_2(transform.right);
+/*        prey.createRays_2(transform.right, moveAngle);
         if (prey.detectObstacle(transform.position))
         {
             prey.collisionAvoid(transform.position);
             characterMovement();
-        }
+        }*/
         /*if (prey.detectObstacleOne(transform.position, transform.forward))
         {
             prey.collisionAvoid(transform.position);

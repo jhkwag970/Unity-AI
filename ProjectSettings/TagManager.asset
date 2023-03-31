@@ -9,7 +9,7 @@ TagManager:
   - Wall_2
   - Wall_3
   - Wall_4
-  - test
+  - Prey
   layers:
   - Default
   - TransparentFX

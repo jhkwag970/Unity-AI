@@ -10,23 +10,23 @@ public class Player
     protected float avoidRange;
 
     private int rayLength;
-    private int angle;
-    protected int angleChange = 3;
+    private int moveAngle;
+    protected int angleChange = 6;
 
-    private Vector3[] rayList;
+    protected Vector3[] rayList;
     private Vector3 destination;
     private Vector3 dir;
     private Vector3 rayPoint;
 
 
-    public Player(float speed, float rotationSpeed, float moveRange, int rayLength, int angle)
+    public Player(float speed, float rotationSpeed, float moveRange, int rayLength, int moveAngle)
     {
         this.speed = speed;
         this.rotationSpeed = rotationSpeed;
         this.moveRange = moveRange;
         this.avoidRange = moveRange / 2;
         this.rayLength = rayLength;
-        this.angle = angle;
+        this.moveAngle = moveAngle;
 
         rayList = new Vector3[rayArraySize()];
     }
@@ -46,7 +46,7 @@ public class Player
 
             Ray characterRay = new Ray(position, vect);
 
-            Debug.DrawRay(position, vect * rayLength, Color.red);
+            //Debug.DrawRay(position, vect * rayLength, Color.red);
 
             if (Physics.Raycast(characterRay, out hit, rayLength))
             {
@@ -85,10 +85,11 @@ public class Player
         return false;
     }
 
-    public void createRays_2(Vector3 right)
+    public void createRays_2(Vector3 right, int angle)
     {
         float rad_angle = (float) angle * Mathf.PI / 180.0f;
-        float change = Mathf.PI/60.0f;
+        float div = 180.0f / angleChange;
+        float change = Mathf.PI/div;
         for (int i = 0; i < rayArraySize(); i++)
         {
 
@@ -105,7 +106,7 @@ public class Player
         float z = Random.Range(-avoidRange, avoidRange);
         
 
-        destination = new Vector3(rayPoint.x+dir.x, position.y, rayPoint.z+dir.z);
+        destination = new Vector3(rayPoint.x+ dir.x, position.y, rayPoint.z+dir.z);
     }
 
     public void randomDestinatnion(Vector3 position)
@@ -133,9 +134,9 @@ public class Player
     {
         int size = 0;
 
-        int diff = 180 - angle;
+        int diff = 180 - moveAngle;
         int remainder = diff / angleChange;
-        int realSize = angle / angleChange;
+        int realSize = moveAngle / angleChange;
         size = realSize - remainder;
 
         return size;
